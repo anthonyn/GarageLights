@@ -1,3 +1,3 @@
 public enum EffectType{
- STAR, DOT;
+ STAR, DOT, DRUMLINESEFFECT,BOUNCINGBALLEFFECT;
 }

@@ -3,7 +3,7 @@
  */
 
 public class EffectFactory {
-  
+
   public Effect makeEffect(int channel, int pitch, int velocity, EffectType effectType  ) {
 
     switch (effectType) {
@@ -11,6 +11,10 @@ public class EffectFactory {
       return new StarEffect( channel, pitch, velocity);
     case DOT:
       return new DotEffect(channel, pitch, velocity);
+    case DRUMLINESEFFECT:
+      return new DrumLinesEffect(channel, pitch, velocity);
+    case BOUNCINGBALLEFFECT:
+      return new BouncingBallEffect(channel, pitch, velocity);   
     default:
       return null;
     }

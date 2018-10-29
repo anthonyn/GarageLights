@@ -19,6 +19,7 @@ void setup() {
 
 void draw() {
   background(0);
+  colorMode(HSB);
 
   for ( int i = effects.size() - 1; i >= 0; i--) {
     effects.get(i).draw();
@@ -36,7 +37,19 @@ void noteOn(int channel, int pitch, int velocity) {
   //println("Channel:"+channel);
   //println("Pitch:"+pitch);
   //println("Velocity:"+velocity);
+
+  if (pitch < 49 ) {
+    effects.add(ef.makeEffect(channel, pitch, velocity, effectType.DRUMLINESEFFECT));
+  } else if ( pitch == 64) {
+    effects.add(ef.makeEffect(channel, pitch, velocity, effectType.STAR));
+  } else if ( pitch == 77) {
+    effects.add(ef.makeEffect(channel, pitch, velocity, effectType.BOUNCINGBALLEFFECT));
+  }else {
+    effects.add(ef.makeEffect(channel, pitch, velocity, effectType.DOT));
+  }
 }
+
+
 
 void noteOff(int channel, int pitch, int velocity) {
   // Receive a noteOff
@@ -46,12 +59,6 @@ void noteOff(int channel, int pitch, int velocity) {
   println("Channel:"+channel);
   println("Pitch:"+pitch);
   println("Velocity:"+velocity);
-
-  if ( pitch == 64) {
-    effects.add(ef.makeEffect(channel, pitch, velocity, effectType.STAR));
-  } else {
-    effects.add(ef.makeEffect(channel, pitch, velocity, effectType.DOT));
-  }
 }
 
 void controllerChange(int channel, int number, int value) {

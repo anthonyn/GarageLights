@@ -2,30 +2,33 @@ public abstract class TraversingEffect extends Effect {
 
   /*
       Extending classes should make sure to 
-      --> define a rate
-      --> Call super in the draw override
-  
-  */
+   --> define a rate
+   --> Call super in the draw override
    
+   */
+
+
   
-  int rate;
 
 
   public TraversingEffect(int channel, int pitch, int velocity) {
+    //rate = 1;
+
     super( channel, pitch, velocity);
   }
 
-   void move(){
-      x += rate;
-   }
-   
-  public void draw(){
-   move(); 
+  void move() {
+    vel.add(acceleration);
+    location.add(vel);
   }
-  
+
+  public void draw() {
+    move();
+  }
+
   public boolean checkAlive() {
-    if (x > width){
-     alive = false; 
+    if (location.x > width) {
+      alive = false;
     }
     return alive;
   }
