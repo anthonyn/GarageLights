@@ -3,6 +3,7 @@ import themidibus.*; //Import the library
 MidiBus myBus; // The MidiBus
 
 EffectFactory ef;
+EffectType effectType;
 
 ArrayList<Effect> effects = new ArrayList<Effect>();
 
@@ -13,21 +14,11 @@ void setup() {
   ef = new EffectFactory();
 
   MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
-
   myBus = new MidiBus(this, 0, 1); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
 }
 
 void draw() {
   background(0);
-
-  //for ( Effect e : effects) {
-  //  println(e.toString());
-  //  if (!e.checkAlive()) {
-  //    effects.remove(e);
-  //  } else {
-  //    e.draw();
-  //  }
-  //}
 
   for ( int i = effects.size() - 1; i >= 0; i--) {
     effects.get(i).draw();
@@ -39,12 +30,12 @@ void draw() {
 
 void noteOn(int channel, int pitch, int velocity) {
   // Receive a noteOn
-  println();
-  println("Note On:");
-  println("--------");
-  println("Channel:"+channel);
-  println("Pitch:"+pitch);
-  println("Velocity:"+velocity);
+  //println();
+  //println("Note On:");
+  //println("--------");
+  //println("Channel:"+channel);
+  //println("Pitch:"+pitch);
+  //println("Velocity:"+velocity);
 }
 
 void noteOff(int channel, int pitch, int velocity) {
@@ -56,17 +47,21 @@ void noteOff(int channel, int pitch, int velocity) {
   println("Pitch:"+pitch);
   println("Velocity:"+velocity);
 
-  effects.add(ef.makeEffect(channel, pitch, velocity, "star"));
+  if ( pitch == 64) {
+    effects.add(ef.makeEffect(channel, pitch, velocity, effectType.STAR));
+  } else {
+    effects.add(ef.makeEffect(channel, pitch, velocity, effectType.DOT));
+  }
 }
 
 void controllerChange(int channel, int number, int value) {
   // Receive a controllerChange
-  println();
-  println("Controller Change:");
-  println("--------");
-  println("Channel:"+channel);
-  println("Number:"+number);
-  println("Value:"+value);
+  //println();
+  //println("Controller Change:");
+  //println("--------");
+  //println("Channel:"+channel);
+  //println("Number:"+number);
+  //println("Value:"+value);
 }
 
 void delay(int time) {

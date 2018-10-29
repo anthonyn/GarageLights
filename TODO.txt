@@ -1,0 +1,3 @@
+[] - Blending of pixels when two objects try and overwrite each other
+[] - Backgrounds can stick to the back
+

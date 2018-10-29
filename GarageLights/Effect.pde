@@ -4,6 +4,8 @@ public abstract class Effect {
   int pitch; 
   int velocity;
   
+  int x, y;
+  
   boolean alive;
 
   public Effect(int channel, int pitch, int velocity) {
