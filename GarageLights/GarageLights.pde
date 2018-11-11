@@ -5,16 +5,34 @@ MidiBus myBus; // The MidiBus
 EffectFactory ef;
 EffectType effectType;
 
+OPC opc;
+
 ArrayList<Effect> effects = new ArrayList<Effect>();
 
 void setup() {
   size(126, 8);
   background(0);
 
+  oscSetup();
+
   ef = new EffectFactory();
 
   MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
   myBus = new MidiBus(this, 0, 1); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
+
+  opc = new OPC(this, "10.0.0.30", 7890);
+
+  //for (int i = 0; i < 8; i++) {
+  //  opc.ledStrip(i, 126, width / 2, i, 3.3, 0, true);
+  //}
+
+  int idx = 0;
+  for (int i = 0; i < 8; i ++) {
+    for (int j = 0; j < 126; j++) {
+      opc.led(idx,  j, i);
+      idx++;
+    }
+  }
 }
 
 void draw() {
@@ -44,7 +62,7 @@ void noteOn(int channel, int pitch, int velocity) {
     effects.add(ef.makeEffect(channel, pitch, velocity, effectType.STAR));
   } else if ( pitch == 77) {
     effects.add(ef.makeEffect(channel, pitch, velocity, effectType.BOUNCINGBALLEFFECT));
-  }else {
+  } else {
     effects.add(ef.makeEffect(channel, pitch, velocity, effectType.DOT));
   }
 }
